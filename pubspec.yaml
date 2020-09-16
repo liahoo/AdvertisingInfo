@@ -1,0 +1,25 @@
+name: advertising_info
+description: A Flutter plugin for fetching Advertising info from Android and iOS
+version: 0.1.0
+homepage: https://github.com/liahoo/AdvertisingInfo
+
+environment:
+  sdk: ">=2.7.0 <3.0.0"
+  flutter: ">=1.20.0 <2.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+flutter:
+  plugin:
+    platforms:
+      android:
+        package: com.fascode.advertising_info
+        pluginClass: AdvertisingInfoPlugin
+      ios:
+        pluginClass: AdvertisingInfoPlugin
