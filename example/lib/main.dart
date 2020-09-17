@@ -22,19 +22,14 @@ class _MyAppState extends State<MyApp> {
     initPlatformState();
   }
 
-  // Platform messages are asynchronous, so we initialize in an async method.
   Future<void> initPlatformState() async {
     AdvertisingInfo advertisingInfo;
-    // Platform messages may fail, so we use a try/catch PlatformException.
     try {
       advertisingInfo = await AdvertisingInfo.read();
     } on PlatformException {
       advertisingInfo = null;
     }
 
-    // If the widget was removed from the tree while the asynchronous platform
-    // message was in flight, we want to discard the reply rather than calling
-    // setState to update our non-existent appearance.
     if (!mounted) return;
 
     setState(() {
@@ -56,26 +51,35 @@ class _MyAppState extends State<MyApp> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text('advertising id:'),
-              Text('${_advertisingInfo?.id}', style: TextStyle(color: Colors.blue, fontSize: 12, fontWeight: FontWeight.bold),),
+              Text(
+                '${_advertisingInfo?.id}',
+                style: TextStyle(
+                    color: Colors.blue,
+                    fontSize: 12,
+                    fontWeight: FontWeight.bold),
+              ),
               Divider(),
               Text('isLimitAdTrackingEnabled:'),
-              Text('${_advertisingInfo?.isLimitAdTrackingEnabled}', style: TextStyle(color: Colors.blue, fontSize: 12, fontWeight: FontWeight.bold),),
+              Text(
+                '${_advertisingInfo?.isLimitAdTrackingEnabled}',
+                style: TextStyle(
+                    color: Colors.blue,
+                    fontSize: 12,
+                    fontWeight: FontWeight.bold),
+              ),
               Divider(),
               Text('authorizationStatus:'),
-              Text('${_advertisingInfo?.authorizationStatus}', style: TextStyle(color: Colors.blue, fontSize: 12, fontWeight: FontWeight.bold),)
+              Text(
+                '${_advertisingInfo?.authorizationStatus}',
+                style: TextStyle(
+                    color: Colors.blue,
+                    fontSize: 12,
+                    fontWeight: FontWeight.bold),
+              )
             ],
           ),
         ),
       ),
     );
-  }
-
-  requestAuthorization() {
-    AdvertisingInfo.requestAuthorization().then((value) =>
-    {
-      if(value == AdTrackingAuthorizationStatus.authorized) {
-
-      }
-    });
   }
 }
