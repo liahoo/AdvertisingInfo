@@ -10,3 +10,7 @@
 
 * Fix the null safty issue.
 * Fix the crash issue of GooglePlayServicesNotAvailableException
+
+## 0.2.1
+
+* Update example app
