@@ -4,11 +4,11 @@ import 'package:flutter/services.dart';
 
 class AdvertisingInfo {
   /// advertising id (IDFA for iOS, GAID for Android)
-  final String id;
+  final String? id;
   /// if user has limited Ad tracking or not.
-  final bool isLimitAdTrackingEnabled;
+  final bool? isLimitAdTrackingEnabled;
   /// authorization status by users. (mainly for iOS14)
-  final AdTrackingAuthorizationStatus authorizationStatus;
+  final AdTrackingAuthorizationStatus? authorizationStatus;
 
   AdvertisingInfo(
       this.id, this.isLimitAdTrackingEnabled, this.authorizationStatus);
@@ -31,7 +31,7 @@ enum AdTrackingAuthorizationStatus {
   authorized
 }
 
-convertAuthorizationStatus(int value) {
+convertAuthorizationStatus(int? value) {
   switch (value) {
     case 1:
       return AdTrackingAuthorizationStatus.restricted;
