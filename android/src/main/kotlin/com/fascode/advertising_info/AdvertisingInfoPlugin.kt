@@ -4,7 +4,6 @@ import android.content.Context
 import android.os.Handler
 import android.os.Looper
 import androidx.annotation.NonNull;
-import com.google.android.gms.ads.identifier.AdvertisingIdClient
 
 import io.flutter.embedding.engine.plugins.FlutterPlugin
 import io.flutter.plugin.common.BinaryMessenger
@@ -32,13 +31,27 @@ class AdvertisingInfoPlugin : FlutterPlugin, MethodCallHandler {
 
     override fun onMethodCall(@NonNull call: MethodCall, @NonNull result: Result) {
         if (call.method == "getAdvertisingInfo") {
-            thread {
-                AdvertisingIdClient.getAdvertisingIdInfo(context)?.let {
+            try {
+                Class.forName("com.google.android.gms.ads.identifier.AdvertisingIdClient")
+                thread {
+                    val adInfo = com.google.android.gms.ads.identifier.AdvertisingIdClient.getAdvertisingIdInfo(context)
                     Handler(Looper.getMainLooper()).post {
-                        result.success(mapOf("id" to it.id, "isLimitAdTrackingEnabled" to it.isLimitAdTrackingEnabled))
+                        result.success(
+                            mapOf(
+                                "id" to adInfo.id,
+                                "isLimitAdTrackingEnabled" to adInfo.isLimitAdTrackingEnabled
+                            )
+                        )
                     }
-                } ?: Handler(Looper.getMainLooper()).post {
-                    result.error("-1", "Internal Error", "Can not read AdvertisingIdInfo from GMS")
+                }
+            } catch (e: Exception) {
+                e.printStackTrace()
+                Handler(Looper.getMainLooper()).post {
+                    result.error(
+                        "-1",
+                        "Internal Error",
+                        "Can not read AdvertisingIdInfo from GMS"
+                    )
                 }
             }
         } else {

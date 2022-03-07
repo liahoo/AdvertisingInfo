@@ -16,10 +16,10 @@ class AdvertisingInfo {
   static const MethodChannel _channel = const MethodChannel('advertising_info');
 
   static Future<AdvertisingInfo> read() async {
-    final Map<String, dynamic> map =
+    final Map<String, dynamic>? map =
         await _channel.invokeMapMethod<String, dynamic>('getAdvertisingInfo');
-    return AdvertisingInfo(map["id"], map["isLimitAdTrackingEnabled"],
-        convertAuthorizationStatus(map["authorizationStatus"]));
+    return AdvertisingInfo(map?["id"], map?["isLimitAdTrackingEnabled"],
+        convertAuthorizationStatus(map?["authorizationStatus"]));
   }
 }
 
